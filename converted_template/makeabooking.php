@@ -19,6 +19,7 @@ if (mysqli_connect_errno()) {
     echo "Error: Unable to connect to MySQL. ".mysqli_connect_error() ;
     exit; //stop processing the page further
 }
+// TODO include ajax to query the database to populate the room field
 
 //prepare a query and send it to the server
 $query = 'SELECT roomID,roomname,roomtype FROM room ORDER BY roomtype';
@@ -32,10 +33,10 @@ $rowcount = mysqli_num_rows($result);
     <p>
         <label for="room">Room (name,type,beds):</label>
         <select type="text" id ="room" list="rooms" name="room">
-            // TODO include ajax to query the database
-            // check whether dropdown should return the id or the actual text
-            <option>Kellie,S,5</option>
-            <option>Herman,D,5</option>
+            // the following values are test values to be
+            // removed once the back-end connection is done
+            <option value = "1">Kellie,S,5</option>
+            <option value = "2">Herman,D,5</option>
         </select>
     </p>
     <p>
@@ -48,7 +49,8 @@ $rowcount = mysqli_num_rows($result);
     </p>
     <p>
         <label for="contactnumber">Contact number: </label>
-        <input type="text" required pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
+        <input type="text" id="contactnumber" name="contactnumber" required
+               pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
                placeholder="(###) ###-####"
     </p>
 
