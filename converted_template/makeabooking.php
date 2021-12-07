@@ -48,7 +48,8 @@ $rowcount = mysqli_num_rows($result);
     </p>
     <p>
         <label for="contactnumber">Contact number: </label>
-        <input type="text"
+        <input type="text" required pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
+               placeholder="(###) ###-####"
     </p>
 
     <input type="submit" name="submit" value="Register">
@@ -56,8 +57,6 @@ $rowcount = mysqli_num_rows($result);
 <?php
 mysqli_free_result($result); //free any memory used by the query
 mysqli_close($DBC); //close the connection once done
-
-
 
 echo '</div></div>';
 require_once "footer.php";
