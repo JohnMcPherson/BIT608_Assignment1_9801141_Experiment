@@ -31,11 +31,11 @@ $rowcount = mysqli_num_rows($result);
 <form method="POST" action="makeabooking.php">
     <p>
         <label for="room">Room (name,type,beds):</label>
-        <select type="number" id ="rooms">
+        <select type="text" id ="room" list="rooms" name="room">
             // TODO include ajax to query the database
             // check whether dropdown should return the id or the actual text
-            <option name = "roomid" value = "1">Kellie,S,5</option>
-            <option name = "roomid" value = "2">Herman,D,5</option>
+            <option>Kellie,S,5</option>
+            <option>Herman,D,5</option>
         </select>
     </p>
     <p>
