@@ -9,11 +9,11 @@
       <div id="menubar">
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="/bnb">Home</a></li>
+          <li class="selected"><a href="/bnb/converted_template">Home</a></li>
           <li><a href="/bnb/converted_template/listrooms.php">Rooms</a></li>
-          <li><a href="/bnb/">blank</a></li>
-          <li><a href="/bnb/registercustomer.php">Register</a></li>
-          <li><a href="/bnb/login.php">Login</a></li>
+          <li><a href="/bnb/converted_template/makeabooking.php">Make a Booking</a></li>
+          <li><a href="/bnb/converted_template/registercustomer.php">Register</a></li>
+          <li><a href="/bnb/converted_template/login.php">Login</a></li>
         </ul>
       </div>
     </div>
