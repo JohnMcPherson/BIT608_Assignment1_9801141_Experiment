@@ -20,19 +20,18 @@ if (mysqli_connect_errno()) {
     exit; //stop processing the page further
 }
 // TODO include ajax to query the database to populate the room field
+// TODO remove test values for roomid
 
 //prepare a query and send it to the server
-$query = 'SELECT roomID,roomname,roomtype FROM room ORDER BY roomtype';
-$result = mysqli_query($DBC,$query);
-$rowcount = mysqli_num_rows($result); 
 ?>
 <h1>Make a Booking</h1>
-<h2><a href='junk.php'>[Return to the Bookings listing]</a><a href="/bnb/converted_template/">[Return to main page]</a></h2>
+<h2><a href='bookingslisting.php'>[Return to the Bookings listing]</a><a href="/bnb/converted_template/">[Return to main page]</a></h2>
 <h2>Booking for [name of logged in user]</h2>
 <form method="POST" action="makeabooking.php">
+    <div class = form_settings>
     <p>
-        <label for="room">Room (name,type,beds):</label>
-        <select type="text" id ="room" list="rooms" name="room">
+        <span><label for="roomid">Room (name,type,beds):</label></span>
+        <label for="roomid"></label><select id ="roomid" name="room">
             // the following values are test values to be
             // removed once the back-end connection is done
             <option value = "1">Kellie,S,5</option>
@@ -40,25 +39,32 @@ $rowcount = mysqli_num_rows($result);
         </select>
     </p>
     <p>
-        <label for="checkindate">Checkin date: </label>
+        <span><label for="checkindate">Checkin date:</label></span>
         <input type="date" id="checkindate" name="checkindate" required>
     </p>
     <p>
-        <label for="checkoutdate">Checkout date: </label>
+        <span><label for="checkoutdate">Checkout date:</label></span>
         <input type="date" id="checkoutdate" name="checkoutdate" required>
     </p>
     <p>
-        <label for="contactnumber">Contact number: </label>
+        <span><label for="contactnumber">Contact number:</label></span>
         <input type="text" id="contactnumber" name="contactnumber" required
                pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
                placeholder="(###) ###-####"
     </p>
+    <p>
+        <span><label for="bookingextras">Booking Extras:</label></span>
+        <textarea class = "contact" id="bookingextras" name="bookingextras" cols="50" rows="8"></textarea>
+    </p>
 
-    <input type="submit" name="submit" value="Register">
+    <p style="padding-top: 15px">
+        <span>&nbsp;</span><input class="submit" type="submit" name="booking_submitted" value="Book" />
+    </p>
+    </div>
 </form>
 <?php
-mysqli_free_result($result); //free any memory used by the query
-mysqli_close($DBC); //close the connection once done
+/*mysqli_free_result($result); //free any memory used by the query
+mysqli_close($DBC); //close the connection once done*/
 
 echo '</div></div>';
 require_once "footer.php";
