@@ -31,7 +31,7 @@ if (mysqli_connect_errno()) {
     <div class = form_settings>
     <p>
         <span><label for="roomid">Room (name,type,beds):</label></span>
-        <label for="roomid"></label><select id ="roomid" name="room">
+        <select class ="booking" id ="roomid" name="room">
             // the following values are test values to be
             // removed once the back-end connection is done
             <option value = "1">Kellie,S,5</option>
@@ -40,21 +40,21 @@ if (mysqli_connect_errno()) {
     </p>
     <p>
         <span><label for="checkindate">Checkin date:</label></span>
-        <input type="date" id="checkindate" name="checkindate" required>
+        <input class = "booking" type="date" id="checkindate" name="checkindate" required>
     </p>
     <p>
         <span><label for="checkoutdate">Checkout date:</label></span>
-        <input type="date" id="checkoutdate" name="checkoutdate" required>
+        <input class = "booking" type="date" id="checkoutdate" name="checkoutdate" required>
     </p>
     <p>
         <span><label for="contactnumber">Contact number:</label></span>
-        <input type="text" id="contactnumber" name="contactnumber" required
+        <input class = "booking" type="text" id="contactnumber" name="contactnumber" required
                pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
                placeholder="(###) ###-####"
     </p>
     <p>
         <span><label for="bookingextras">Booking Extras:</label></span>
-        <textarea class = "contact" id="bookingextras" name="bookingextras" cols="50" rows="8"></textarea>
+        <textarea class = "booking" id="bookingextras" name="bookingextras" rows="8" cols="50"></textarea>
     </p>
 
     <p style="padding-top: 15px">
@@ -63,8 +63,7 @@ if (mysqli_connect_errno()) {
     </div>
 </form>
 <?php
-/*mysqli_free_result($result); //free any memory used by the query
-mysqli_close($DBC); //close the connection once done*/
+mysqli_close($DBC); //close the connection once done
 
 echo '</div></div>';
 require_once "footer.php";
