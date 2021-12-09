@@ -1,3 +1,10 @@
+<!--
+Assumptions
+- people will want to book several months (or even years) ahead, and will appreciate the ability to easily change the year
+in the datepickers
+-->
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,28 +14,40 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+    // the script is only relevant to this page, so added here
     <script>
         $(document).ready( function() {
-            var dateFormat = "mm/dd/yy";
+            // set to NZ date format
+            var localDateFormat = "dd/mm/yy";
+            var numMonthsDisplayed = 2
+
+            // setup checkindate
             var checkindate = $("#checkindate");
             checkindate.datepicker({
                 changeMonth: true,
                 changeYear: true,
-                numberOfMonths: 2
+                numberOfMonths: numMonthsDisplayed,
+                dateFormat : localDateFormat
             });
             checkindate.on( "change", function() {
                 checkoutdate.datepicker( "option", "minDate", getDateOfNextDay(this));
             })
+
+            //setup checkout date
             var checkoutdate = $( "#checkoutdate" );
             checkoutdate.datepicker({
                 changeMonth: true,
                 changeYear: true,
-                numberOfMonths: 2
+                numberOfMonths: numMonthsDisplayed,
+                dateFormat : localDateFormat
             });
             checkoutdate.on( "change", function() {
                 checkindate.datepicker( "option", "maxDate", getDateOfPreviousDay( this));
             });
 
+
+            // date functions to support checkin day is always less than checkout day
             function getDateOfNextDay( element) {
                 return getDateWithOffset(element, 1);
             }
@@ -40,7 +59,7 @@
             function getDateWithOffset( element , offset) {
                 var date;
                 try {
-                    date = $.datepicker.parseDate( dateFormat, element.value );
+                    date = $.datepicker.parseDate( localDateFormat, element.value );
                     date.setDate(date.getDate() + offset)
                 } catch( error ) {
                     date = null;
