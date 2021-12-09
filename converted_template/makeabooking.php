@@ -1,3 +1,7 @@
+// ASSUMPTIONS
+// Clients cannot set a check in date earlier than today
+// Clients will be booking from NZ, and their web client will working in NZ time
+
 <?php
 include "header.php";
 include "menu.php";
@@ -26,24 +30,27 @@ if (mysqli_connect_errno()) {
 ?>
 <body>
 <script>
-    // TODO check that we can convert checkindate and checkoutdate fields to a suitable date format
-    // when we do the back-end. (Should be fine - but check at that stage)
+    // TODO check that we can convert checkindate and checkoutdate fields
+    // to a date format suitable for the back end. (Datepicker works with text, not date).
+    // (Should be fine - but check when we do the back end)
 
     // When the page DOM is ready: setup checkindate and checkoutdate formatting and event listeners
     $(document).ready( function() {
         // set to NZ date format
         var localDateFormat = "dd/mm/yy";
-        var numMonthsDisplayed = 2
+        var numMonthsDisplayed = 2;
 
         // setup checkindate with jquery datepicker
         var checkindate = $("#checkindate");
         checkindate.datepicker({
             changeMonth: true,
             changeYear: true,
+            minDate: new Date(), // minDate is today
             numberOfMonths: numMonthsDisplayed,
             dateFormat : localDateFormat
         });
         checkindate.on( "change", function() {
+            // allowable check out date is constrained by the (newly set) check in date
             checkoutdate.datepicker( "option", "minDate", getDateOfNextDay(this));
         })
 
@@ -56,11 +63,12 @@ if (mysqli_connect_errno()) {
             dateFormat : localDateFormat
         });
         checkoutdate.on( "change", function() {
+            // allowable check in date is constrained by the (newly set) check in date
             checkindate.datepicker( "option", "maxDate", getDateOfPreviousDay( this));
         });
 
 
-        // date functions to support checkin day is always less than checkout day
+        // date functions to support the rule that check in day is always less than check out day
         function getDateOfNextDay( element) {
             return getDateWithOffset(element, 1);
         }
