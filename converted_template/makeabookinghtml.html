@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery UI Datepicker - Select a Date Range</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script>
@@ -13,31 +12,38 @@
             var dateFormat = "mm/dd/yy";
             var checkindate = $("#checkindate");
             checkindate.datepicker({
-                defaultDate: "+1w",
                 changeMonth: true,
-                numberOfMonths: 3
+                changeYear: true,
+                numberOfMonths: 2
             });
             checkindate.on( "change", function() {
-                checkoutdate.datepicker( "option", "minDate", getDate( this ) );
+                checkoutdate.datepicker( "option", "minDate", getDateOfNextDay(this));
             })
             var checkoutdate = $( "#checkoutdate" );
             checkoutdate.datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
+                 changeMonth: true,
+                numberOfMonths: 2
             });
             checkoutdate.on( "change", function() {
-                checkindate.datepicker( "option", "maxDate", getDate( this ) );
+                checkindate.datepicker( "option", "maxDate", getDateOfPreviousDay( this));
             });
 
-            function getDate( element ) {
+            function getDateOfNextDay( element) {
+                return getDateWithOffset(element, 1);
+            }
+
+            function getDateOfPreviousDay( element) {
+                return getDateWithOffset(element, -1);
+            }
+
+            function getDateWithOffset( element , offset) {
                 var date;
                 try {
                     date = $.datepicker.parseDate( dateFormat, element.value );
+                    date.setDate(date.getDate() + offset)
                 } catch( error ) {
                     date = null;
                 }
-
                 return date;
             }
         } );
