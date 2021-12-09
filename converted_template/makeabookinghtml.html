@@ -17,12 +17,16 @@ in the datepickers
 
     // the script is only relevant to this page, so added here
     <script>
+        // TODO check that we can convert checkindate and checkoutdate fields to a suitable date format
+        // when we do the back-end. (Should be fine - but check at that stage)
+
+        // When the page DOM is ready: setup checkindate and checkoutdate formatting and event listeners
         $(document).ready( function() {
             // set to NZ date format
             var localDateFormat = "dd/mm/yy";
             var numMonthsDisplayed = 2
 
-            // setup checkindate
+            // setup checkindate with jquery datepicker
             var checkindate = $("#checkindate");
             checkindate.datepicker({
                 changeMonth: true,
@@ -34,7 +38,7 @@ in the datepickers
                 checkoutdate.datepicker( "option", "minDate", getDateOfNextDay(this));
             })
 
-            //setup checkout date
+            //setup checkoutdate with jquery datepicker
             var checkoutdate = $( "#checkoutdate" );
             checkoutdate.datepicker({
                 changeMonth: true,
