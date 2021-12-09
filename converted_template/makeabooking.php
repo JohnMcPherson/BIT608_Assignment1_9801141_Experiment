@@ -26,37 +26,60 @@ if (mysqli_connect_errno()) {
 ?>
 <body>
 <script>
-    $(document).ready(function() {
-        var dateFormat = "mm/dd/yy",
-            from = $("#checkindate")
-                .datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    numberOfMonths: 3
-                })
-                .on("change", function () {
-                    to.datepicker("option", "minDate", getDate(this));
-                }),
-            to = $("#checkoutdate").datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
-            })
-                .on("change", function () {
-                    from.datepicker("option", "maxDate", getDate(this));
-                });
+    // TODO check that we can convert checkindate and checkoutdate fields to a suitable date format
+    // when we do the back-end. (Should be fine - but check at that stage)
 
-        function getDate(element) {
+    // When the page DOM is ready: setup checkindate and checkoutdate formatting and event listeners
+    $(document).ready( function() {
+        // set to NZ date format
+        var localDateFormat = "dd/mm/yy";
+        var numMonthsDisplayed = 2
+
+        // setup checkindate with jquery datepicker
+        var checkindate = $("#checkindate");
+        checkindate.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: numMonthsDisplayed,
+            dateFormat : localDateFormat
+        });
+        checkindate.on( "change", function() {
+            checkoutdate.datepicker( "option", "minDate", getDateOfNextDay(this));
+        })
+
+        //setup checkoutdate with jquery datepicker
+        var checkoutdate = $( "#checkoutdate" );
+        checkoutdate.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: numMonthsDisplayed,
+            dateFormat : localDateFormat
+        });
+        checkoutdate.on( "change", function() {
+            checkindate.datepicker( "option", "maxDate", getDateOfPreviousDay( this));
+        });
+
+
+        // date functions to support checkin day is always less than checkout day
+        function getDateOfNextDay( element) {
+            return getDateWithOffset(element, 1);
+        }
+
+        function getDateOfPreviousDay( element) {
+            return getDateWithOffset(element, -1);
+        }
+
+        function getDateWithOffset( element , offset) {
             var date;
             try {
-                date = $.datepicker.parseDate(dateFormat, element.value);
-            } catch (error) {
+                date = $.datepicker.parseDate( localDateFormat, element.value );
+                date.setDate(date.getDate() + offset)
+            } catch( error ) {
                 date = null;
             }
-
             return date;
         }
-    });
+    } );
 </script>
 <h1>Make a Booking</h1>
 <h2><a href='bookingslisting.php'>[Return to the Bookings listing]</a><a href="/bnb/converted_template/">[Return to main
@@ -75,17 +98,17 @@ if (mysqli_connect_errno()) {
         </p>
         <p>
             <span><label for="checkindate">Checkin date:</label></span>
-            <input class="booking" type="date" id="checkindate" name="checkindate" required>
+            <input class="booking" type="text" id="checkindate" name="checkindate" required>
         </p>
         <p>
             <span><label for="checkoutdate">Checkout date:</label></span>
-            <input class="booking" type="date" id="checkoutdate" name="checkoutdate" required>
+            <input class="booking" type="text" id="checkoutdate" name="checkoutdate" required>
         </p>
         <p>
             <span><label for="contactnumber">Contact number:</label></span>
             <input class="booking" type="text" id="contactnumber" name="contactnumber" required
                    pattern="^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$"
-                   placeholder="(###) ###-####"
+                   placeholder="(###) ###-####">
         </p>
         <p>
             <span><label for="bookingextras">Booking Extras:</label></span>
