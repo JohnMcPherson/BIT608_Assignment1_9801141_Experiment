@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="http_code.jquery.com_jquery-3.6.0" type="javaScript">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_jquery-3.6.0.js" />
+      <root url="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_code.jquery.com_ui_1.13.0_jquery-ui.js" />
+    </SOURCES>
+  </library>
+</component>
