@@ -1,6 +1,12 @@
 // ASSUMPTIONS
+
 // Clients cannot set a check in date earlier than today
+
 // Clients will be booking from NZ, and their web client will working in NZ time
+
+// Using ".$_SESSION['username']" to display the logged in user
+// TODO change the display of the logged in user when we know what is required
+// (may be in a later assignment)
 
 <?php
 include "header.php";
@@ -90,9 +96,11 @@ if (mysqli_connect_errno()) {
     } );
 </script>
 <h1>Make a Booking</h1>
-<h2><a href='bookingslisting.php'>[Return to the Bookings listing]</a><a href="/bnb/converted_template/">[Return to main
+<h2><a href='currentbookings.php'>[Return to the Bookings listing]</a><a href="/bnb/converted_template/">[Return to main
         page]</a></h2>
-<h2>Booking for [name of logged in user]</h2>
+<?PHP
+echo "<h2>Booking for ".$_SESSION['username']."</h2>"
+?>
 <form method="POST" action="makeabooking.php">
     <div class=form_settings>
         <p>
