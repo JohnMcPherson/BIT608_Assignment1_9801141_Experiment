@@ -1,4 +1,6 @@
-    <div id="header">
+// ASSUMPTIONS
+// "My Bookings" OK as a menu option for Current Bookings
+<div id="header">
       <div id="logo">
         <div id="logo_text">
           <!-- class="logo_colour", allows you to change the colour of the text -->
@@ -11,7 +13,7 @@
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
           <li class="selected"><a href="/bnb/converted_template">Home</a></li>
           <li><a href="/bnb/converted_template/listrooms.php">Rooms</a></li>
-          <li><a href="/bnb/converted_template/makeabooking.php">Make a Booking</a></li>
+          <li><a href="/bnb/converted_template/currentbookings.php">Current Bookings</a></li>
           <li><a href="/bnb/converted_template/registercustomer.php">Register</a></li>
           <li><a href="/bnb/converted_template/login.php">Login</a></li>
         </ul>
