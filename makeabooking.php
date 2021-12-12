@@ -8,8 +8,7 @@ Clients will be booking from NZ, and their web client will working in NZ time
 The 'logged in" user is hardcoded as Test (in "Booking for Test")
 
 Styling is not part of the assignment. But the stylesheet is included to make the datepicker
-(a bit) more readable. I want the 2 months to display horizontally, but I will leave that to
-when full styling is applied
+(a bit) more readable.
 -->
 
 
